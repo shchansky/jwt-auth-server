@@ -2,7 +2,6 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 
 const authRouter = require("./src/auth");
-const { getTokens } = require("./src/auth/utils");
 
 const app = express();
 
