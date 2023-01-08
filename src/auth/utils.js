@@ -27,6 +27,22 @@ const verifyAuthorizationMiddleware = (req, res, next) => {
   return next();
 };
 
+const verifyRefreshTokenMiddleware = (req, res, next) => {
+  const refreshToken = req.cookies.refreshToken;
+
+  if (!refreshToken) {
+    return res.sendStatus(401);
+  }
+
+  try {
+    const decoded = jwt.verify(refreshToken, signatureRefresh);
+    req.user = decoded;
+  } catch (err) {
+    return res.sendStatus(401);
+  }
+  return next();
+};
+
 const getTokens = (login) => ({
   accessToken: jwt.sign({ login }, signatureAccess, {
     expiresIn: `${accessTokenAge}s`,
@@ -40,4 +56,5 @@ module.exports = {
   getTokens,
   refreshTokenTokenAge,
   verifyAuthorizationMiddleware,
+  verifyRefreshTokenMiddleware,
 };
