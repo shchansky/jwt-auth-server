@@ -83,9 +83,9 @@ authRouter.get("/logout", (req, res) => {
   res.sendStatus(200);
 });
 
-authRouter.get("/profile", (req, res) => {
-  res.send("admin");
-});
+// authRouter.get("/profile", verifyAuthorizationMiddleware, (req, res) => {
+//   res.send("admin");
+// });
 
 // authRouter.get("/refresh", verifyRefreshTokenMiddleware, (req, res) => {
 //   const { accessToken, refreshToken } = getTokens(req.user.login);
@@ -100,8 +100,8 @@ authRouter.get("/profile", (req, res) => {
 //   res.send({ accessToken });
 // });
 
-// authRouter.get("/profile", verifyAuthorizationMiddleware, (req, res) => {
-//   res.send("admin");
-// });
+authRouter.get("/profile", verifyAuthorizationMiddleware, (req, res) => {
+  res.send("admin");
+});
 
 module.exports = authRouter;
